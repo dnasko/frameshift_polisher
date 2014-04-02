@@ -1,6 +1,4 @@
-frameshift_polisher
-===================
+The Frameshift Polisher
+=======================
 
-Briefly
--------
-BLAST-driven pipeline for polishing out pesky frame shifts -- particularly in PacBio reads.
+A BLAST-driven pipeline for polishing out pesky frameshifts -- particularly in PacBio reads.
