@@ -42,3 +42,6 @@ You recieve the following BLAST results whereby your sequence of interest "gene_
 | gene_01 | subj_01 |   83.33 |     102 |    31 |     341 |   364 |   2e-44 |      -2 |  
 | gene_01 | subj_01 |   80.00 |     247 |   188 |     294 |   314 |   2e-44 |      -1 |  
 
+### Overlap types
+
+![alt text](https://github.com/dnasko/frameshift_polisher/images/overlap.png "Overlap Types")
