@@ -44,4 +44,4 @@ You recieve the following BLAST results whereby your sequence of interest "gene_
 
 ### Overlap types
 
-![alt text](https://github.com/dnasko/frameshift_polisher/images/overlap.png "Overlap Types")
+![alt text](https://github.com/dnasko/frameshift_polisher/blob/master/images/overlap.png "Overlap Types")
