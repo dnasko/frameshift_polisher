@@ -20,19 +20,18 @@ Sounds mysterious, how dow it work?
 The Frameshift Polisher
 -----------------------
 
-Input: FASTA of nucleotide sequences
+**Input**: FASTA of nucleotide sequences
 
-Output: FASTA of frameshift corrected peptide sequences
+**Output**: FASTA of frameshift corrected peptide sequences
 
 Okay, so you have a large set of nucleotide sequences that you know possess a few frameshifts. Polisher will take this FASTA file and perform a BLASTX against a user-defined BLASTable datadase. Polisher will then parse the resutls of this BLASTX to frameshift correct the sequences.
 
 The BLASTable database is a peptide BLAST database of (you guessed it) peptide sequences. It can be as small as a set of 2,000 *Cas* peptides or as large as NCBI's NR peptide database. The larger the database, the longer the blast will take, but the more thorough the search will be.
 
-Trying to make a       tab
 
-`| query ||| subject | per_id | qstart | qend | sstart | send | evalue | frame |`
-`+---------+---------+--------+--------+------+--------+------+--------+-------+`
-`| gene_01 | subj_01 | 82.76 || 455 |||| 282 || 224 |||| 281 || 2e-44 || -3 ||||`
-`| gene_01 | subj_01 | 51.02 || 591 |||| 448 || 178 |||| 226 || 2e-44 || -2 ||||`
-`| gene_01 | subj_01 | 83.33 || 102 |||| 31 ||| 341 |||| 364 || 2e-44 || -2 ||||`
-`| gene_01 | subj_01 | 80.00 || 247 |||| 188 || 294 |||| 314 || 2e-44 || -1 ||||`
+| query ||| subject | per_id | qstart | qend | sstart | send | evalue | frame |
++---------+---------+--------+--------+------+--------+------+--------+-------+
+| gene_01 | subj_01 | 82.76 || 455 |||| 282 || 224 |||| 281 || 2e-44 || -3 ||||
+| gene_01 | subj_01 | 51.02 || 591 |||| 448 || 178 |||| 226 || 2e-44 || -2 ||||
+| gene_01 | subj_01 | 83.33 || 102 |||| 31 ||| 341 |||| 364 || 2e-44 || -2 ||||
+| gene_01 | subj_01 | 80.00 || 247 |||| 188 || 294 |||| 314 || 2e-44 || -1 ||||
