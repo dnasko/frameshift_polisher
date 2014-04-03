@@ -30,5 +30,5 @@ The BLASTable database is a peptide BLAST database of (you guessed it) peptide s
 
 Trying to make a       tab
 
-`| query | subject | per_ident | length | mismatch | gapopen | qstart | qend | sstart | send |`
-`| id_1 | subj_id_1 | 51.26 | 119 | 57 | 1 | 736 | 380 | 170 | 287 | 4e-44 | 114 | -1 | 0 |`
+`| query ||| subject | per_ident | length | mismatch | gapopen | qstart | qend | sstart | send | evalue | bits | **frame** |`
+`| gene_01 | subj_01 | 51.26 ||||| 119 |||| 57 ||||||| 1 ||||||| 736 |||| 380 || 170 |||| 287 || 4e-44 || 114 || -1 ||||`
