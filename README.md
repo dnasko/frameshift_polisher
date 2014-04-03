@@ -1,7 +1,7 @@
 The Frameshift Polisher
 =======================
 
-A BLAST-driven pipeline for polishing out pesky frameshifts---particularly in PacBio reads.
+A BLAST-driven pipeline for polishing out pesky frameshifts -- particularly in PacBio reads.
 
 Preamble
 --------
@@ -27,6 +27,8 @@ Output: FASTA of frameshift corrected peptide sequences
 Okay, so you have a large set of nucleotide sequences that you know possess a few frameshifts. Polisher will take this FASTA file and perform a BLASTX against a user-defined BLASTable datadase. Polisher will then parse the resutls of this BLASTX to frameshift correct the sequences.
 
 The BLASTable database is a peptide BLAST database of (you guessed it) peptide sequences. It can be as small as a set of 2,000 *Cas* peptides or as large as NCBI's NR peptide database. The larger the database, the longer the blast will take, but the more thorough the search will be.
+
+Trying to make a       tab
 
 `| query | subject | per_ident | length | mismatch | gapopen | qstart | qend | sstart | send |`
 `| id_1 | subj_id_1 | 51.26 | 119 | 57 | 1 | 736 | 380 | 170 | 287 | 4e-44 | 114 | -1 | 0 |`
