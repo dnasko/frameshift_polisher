@@ -21,8 +21,11 @@ The Frameshift Polisher
 -----------------------
 
 Input: FASTA of nucleotide sequences
+
 Output: FASTA of frameshift corrected peptide sequences
 
-Okay, so you have a large set of nucleotide sequences that you know possess a few frameshifts. Polisher will take this FASTA file and perform a BALSTX against a user-defined BLASTable datadase. Polisher will then parse the resutls of this BLASTX to frame-shift correct the sequences.
+Okay, so you have a large set of nucleotide sequences that you know possess a few frameshifts. Polisher will take this FASTA file and perform a BLASTX against a user-defined BLASTable datadase. Polisher will then parse the resutls of this BLASTX to frameshift correct the sequences.
 
-The BLASTable database is a peptide BLAST database of (you guessed it) peptide sequences. It can be as small as a set of 2,000 *Cas* peptides or as large as all of NCBI's NR peptide database. The llarger it is, the longer the blast will take, but the more thorough the search will be.
+The BLASTable database is a peptide BLAST database of (you guessed it) peptide sequences. It can be as small as a set of 2,000 *Cas* peptides or as large as NCBI's NR peptide database. The larger the database, the longer the blast will take, but the more thorough the search will be.
+
+`query_id_1   subject_id_1 51.26    119	  57	   1  736  380     170     287     4e-44    114    -1      0`
