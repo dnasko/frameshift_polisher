@@ -28,10 +28,9 @@ Okay, so you have a large set of nucleotide sequences that you know possess a fe
 
 The BLASTable database is a peptide BLAST database of (you guessed it) peptide sequences. It can be as small as a set of 2,000 *Cas* peptides or as large as NCBI's NR peptide database. The larger the database, the longer the blast will take, but the more thorough the search will be.
 
-
-`| query ||| subject | per_id | qstart | qend | sstart | send | evalue | frame |  
-+---------+---------+--------+--------+------+--------+------+--------+-------+`  
-| gene_01 | subj_01 | 82.76 || 455 |||| 282 || 224 |||| 281 || 2e-44 || -3 ||||  
-| gene_01 | subj_01 | 51.02 || 591 |||| 448 || 178 |||| 226 || 2e-44 || -2 ||||  
-| gene_01 | subj_01 | 83.33 || 102 |||| 31 ||| 341 |||| 364 || 2e-44 || -2 ||||  
-| gene_01 | subj_01 | 80.00 || 247 |||| 188 || 294 |||| 314 || 2e-44 || -1 ||||  
+| Query   | Subject | Perc ID | q.start | q.end | s.start | s.end | e.value | q.frame |
+| ------- | ------- | -------:| -------:| -----:| -------:| -----:| -------:| -------:|
+| gene_01 | subj_01 |   82.76 |     455 |   282 |     224 |   281 |   2e-44 |      -3 |  
+| gene_01 | subj_01 |   51.02 |     591 |   448 |     178 |   226 |   2e-44 |      -2 |  
+| gene_01 | subj_01 |   83.33 |     102 |    31 |     341 |   364 |   2e-44 |      -2 |  
+| gene_01 | subj_01 |   80.00 |     247 |   188 |     294 |   314 |   2e-44 |      -1 |  
