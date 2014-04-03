@@ -10,8 +10,8 @@ Even after error correction, PacBio reads posses a *few* pesky errors. These err
 
 If we have a read, that has been mostly error corrected, and we know what this gene *ought* to be, then by performing a 6-frame translation and aligning all six frames with other genes similar to it we should be able to see what regions are in what frames.
 
-What is it capable of?
-----------------------
+What is it capable of ?
+-----------------------
 
 As the "polisher" portion of the name implies this program is meant to only fix a few lingering frame shifts that are present in a given sequence. This is an inheritied restriction from BLAST.
 
