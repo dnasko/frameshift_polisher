@@ -12,16 +12,20 @@ If we have a read, that has been mostly error corrected, and we know what this g
 
 ### What is it capable of ?
 
-As the "polisher" portion of the name implies this program is meant to only fix a few lingering frame shifts that are present in a given sequence. This is an inheritied restriction from BLAST.
+As the term "polisher" implies this program is meant to only fix a few lingering frame shifts that are present in a given sequence. This is an inheritied restriction from BLAST as significant peptide alignments will only be found if they are long enough (i.e. not broken apart by frequent frameshifts).
 
-Sounds mysterious, how dow it work?
-
-The Frameshift Polisher
------------------------
+Usage
+-----
 
 **Input**: FASTA of nucleotide sequences
 
 **Output**: FASTA of frameshift corrected peptide sequences
+
+`$ perl frameshift_polisher -fasta /Path/to/reads.fasta -db /Path/to/db -work /Path/to/working/directory`
+
+
+How it works
+------------
 
 Okay, so you have a large set of nucleotide sequences that you know possess a few frameshifts. Polisher will take this FASTA file and perform a BLASTX against a user-defined BLASTable datadase. Polisher will then parse the resutls of this BLASTX to frameshift correct the sequences.
 
@@ -37,3 +41,4 @@ You recieve the following BLAST results whereby your sequence of interest "gene_
 | gene_01 | subj_01 |   51.02 |     591 |   448 |     178 |   226 |   2e-44 |      -2 |  
 | gene_01 | subj_01 |   83.33 |     102 |    31 |     341 |   364 |   2e-44 |      -2 |  
 | gene_01 | subj_01 |   80.00 |     247 |   188 |     294 |   314 |   2e-44 |      -1 |  
+
