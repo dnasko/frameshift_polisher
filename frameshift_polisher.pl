@@ -106,17 +106,19 @@ pod2usage( -msg  => "\n\n ERROR!  Required argument -fasta not found.\n\n", -exi
 pod2usage( -msg  => "\n\n ERROR!  Required argument -db not found.\n\n", -exitval => 2, -verbose => 1)  if (! $db );
 pod2usage( -msg  => "\n\n ERROR!  Required argument -work not found.\n\n", -exitval => 2, -verbose => 1)  if (! $work );
 
+## QC checks
 QC::fasta_check($fasta);
 QC::nt_check($fasta);
 my $infile_root = Format::file_root($fasta);
 my $db_root     = Format::db_root($db);
 
+## Create working directories and update
 print `mkdir -p $work`;
 print `mkdir -p $work/ncbi-blastx`;
 print `mkdir -p $work/frameshift_polisher`;
-
 print " QC checks ... [ Passed ]\n Create working directories ... [ Passed ]\n Begin BLASTx using $threads threads ... ";
 
+## Begin BLASTX
 my $blastx_exe = "blastx " .
     "-query $fasta " .
     "-db $db " .
@@ -127,6 +129,170 @@ my $blastx_exe = "blastx " .
 print `$blastx_exe`;
 print "[complete]\n";
 
+## Begin parsing the BLASTX output
+if ( -z '$work/ncbi-blastx/$infile_root.$db_root.btab') { die "\n\n Frameshift Polisher is exiting because none of your sequences found a significant hit to any sequences in the BLAST database you provided.\n\n" }
+
+my ($q_prev,$s_prev,$pep);
+
+my $line_count = 1;
+my $begin = 0;
+my $end = 0;
+my $counter = 1;
+my %Types;
+
+my $fixes = 0;
+my $stops = 0;
+my $total_fixes = 0;
+my $total_stops = 0;
+
+my %Overlaps = (
+    "0000" => "Type I",
+    "1111" => "Type II",
+    "0010" => "Type III",
+    "1011" => "Type IV",
+    "1010" => "Type V",
+    "0011" => "Type VI",
+    );
+
+open(IN,"<$work/ncbi-blastx/$infile_root.$db_root.btab") || die "\n\n Error: Cannot open BLAST's output: $work/ncbi-blastx/$infile_root.$db_root.btab\n\n";
+while(<IN>) {
+    chomp;
+    my @A = split(/\t/, $_);
+    my $qid    = $A[0];
+    my $sid    = $A[1];
+    my $qseq   = $A[14];
+    my $sseq   = $A[15];
+    my $sstart = $A[8];
+    my $send   = $A[9];
+    my $num_gaps = $sseq =~ tr/-/-/;
+    my $qframe = $A[12];
+    if ($line_count == 1) {
+	$fixes += 1;
+	$pep = $qseq;
+	$begin = $sstart;
+	$end = $send;
+	#print "$begin\t$end\t$pep\n";
+    }
+    else {
+	my $binary = "";
+	if ($qid eq $q_prev) {
+	    if ($sid eq $s_prev) {
+		$fixes += 1;
+		if ($sstart > $begin) { $binary = "1"; }
+		else { $binary = "0"; }
+		if ($sstart > $end) { $binary = $binary . "1"; }
+		else { $binary = $binary . "0"; }
+		if ($send > $begin) { $binary = $binary . "1"; }
+                else { $binary = $binary . "0"; }
+		if ($send > $end) { $binary = $binary . "1"; }
+                else { $binary = $binary . "0"; }
+		##############
+		## Evaluate ##
+		##############
+		if ($binary eq "0000") {
+		        #print "$line_count: Type I $begin\t$end\t$sstart\t$send\n";
+		    $Types{"Type 1"}++;
+		    my $diff = $begin - $send;
+		    $diff--;
+                    for (my $i = 0; $i < $diff; $i++) {
+                        $pep = "X" . $pep;
+                    }
+                    $pep = $qseq . $pep;
+                    $begin = $sstart;
+		}
+		elsif ($binary eq "1111") {
+		        #print "$line_count: Type II $begin\t$end\t$sstart\t$send\n";
+		    $Types{"Type 2"}++;
+		    my $diff = $sstart - $end;
+		    $diff--;
+		    for (my $i = 0; $i < $diff; $i++) {
+			$pep = $pep . "X";
+		    }
+		    $pep = $pep . $qseq;
+		    $end = $send;
+		}
+		elsif ($binary eq "0010") {
+		        #print "$line_count: Type III $begin\t$end\t$sstart\t$send\n";
+		    $Types{"Type 3"}++;
+		    my $diff = $send - $begin;
+		    $diff++;
+		    my $to_grab = length($qseq) - $diff;
+		    my $sub_seq = substr $qseq, 0, $to_grab;
+		    $pep = $sub_seq . $pep;
+		    $begin = $sstart;
+		}
+		elsif ($binary eq "1011") {
+		    #print "$line_count: Type IV $begin\t$end\t$sstart\t$send\n";    
+		    $Types{"Type 4"}++;
+		    my $diff = $sstart - $send;
+                    $diff++;
+                    my $sub_seq = substr $qseq, $diff;
+                    $pep = $pep . $sub_seq;
+                    $end = $send;
+		}
+		elsif ($binary eq "1010") {
+		        #print "$line_count: Type V $begin\t$end\t$sstart\t$send\n";
+		    $Types{"Type 5"}++;
+		    my $b_adjust = $sstart - $begin;
+		    my $e_adjust = $send - $begin;
+		    $b_adjust++;
+		    $e_adjust += 2;
+		    my $head = substr $pep, 0, $b_adjust;
+		    my $tail = substr $pep, $e_adjust;
+		    $pep = $head . $qseq . $tail;
+		}
+		elsif ($binary eq "0011") {
+		        #print "$line_count: Type VI $begin\t$end\t$sstart\t$send\n";
+		    $Types{"Type 6"}++;
+		        
+                }
+		else {
+		    die "\n\n Unexpected overlap class encountered: $binary\n\n";
+		}
+	    }
+	    else {
+		if ($counter == 1) {
+		    my @A = split(//, $_);
+		    foreach my $i (@A) { if ($i eq "*") {$stops++;}}
+		    $pep =~ s/-//g;
+		    $pep =~ s/\*/X/g;
+		    $fixes--;
+		    $total_fixes += $fixes;
+		    $total_stops += $stops;
+		    print STDERR "$qid -> $counter\t$fixes\t$stops\n";
+		}
+		print STDOUT ">$qid" . " -> " . $counter . "\n$pep\n";
+		$fixes = 0;
+		$stops = 0;
+		$pep = $qseq;
+		$begin = $sstart;
+		$end = $send;
+		$counter++;
+	    }
+	}
+	else {
+	    $pep =~ s/-//g;
+	    $pep =~ s/\*/X/g;
+	    print STDOUT ">$q_prev" . " -> " . $counter . "\n$pep\n";
+	    $pep = $qseq;
+	    $begin = $sstart;
+	    $end = $send;
+	    $counter = 1;
+	    $fixes++;
+	}
+    }
+    $q_prev = $qid;
+    $s_prev= $sid;
+    $line_count++;
+}
+close(IN);
+
+print STDERR "\nTOTAL\tFrameshifts\tStop Codons
+\t$total_fixes\t\t$total_stops\n\n";
+
+foreach my $i (sort keys %Types) {
+    print STDERR "$i\t$Types{$i}\n";
+}
 
 
 exit 0;
