@@ -1,5 +1,4 @@
-The Frameshift Polisher
-=======================
+![alt text](https://github.com/dnasko/frameshift_polisher/blob/master/images/polisher_logo.png?raw=true "The Frameshift Polisher")
 
 A BLAST-driven pipeline for polishing out pesky frameshifts -- particularly in PacBio reads.
 
