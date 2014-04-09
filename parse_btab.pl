@@ -2,19 +2,19 @@
 use strict;
 
 my $infile = $ARGV[0];
-my $q_prev = "";
-my $s_prev = "";
-my $line_count = 1;
-my $pep = "";
+
+my ($q_prev,$s_prev,$pep);
 my $begin = 0;
 my $end = 0;
-my $counter = 1;
-my %Types;
+my $line_count = 1;
+my $counter = 1;      ## Number of subjects to hit a sequence
 
-my $fixes = 0;
+my $fixes = 0;        ## Number of frameshift correctiosn for a given query
 my $stops = 0;
 my $total_fixes = 0;
 my $total_stops = 0;
+
+my %Types;
 
 my %Overlaps = (
     "0000" => "Type I",
@@ -37,17 +37,17 @@ while(<IN>) {
     my $send   = $A[9];
     my $num_gaps = $sseq =~ tr/-/-/;
     my $qframe = $A[12];
+    my $ppos = $A[16];
     if ($line_count == 1) {
 	$fixes += 1;
 	$pep = $qseq;
 	$begin = $sstart;
 	$end = $send;
-	#print "$begin\t$end\t$pep\n";
     }
     else {
 	my $binary = "";
 	if ($qid eq $q_prev) {
-	    if ($sid eq $s_prev) {
+	    if ($sid eq $s_prev && $ppos >= 50) {
 		$fixes += 1;
 		if ($sstart > $begin) { $binary = "1"; }
 		else { $binary = "0"; }
@@ -65,7 +65,7 @@ while(<IN>) {
 		    $Types{"Type 1"}++;
 		    my $diff = $begin - $send;
 		    $diff--;
-                    for (my $i = 0; $i < $diff; $i++) {
+                    for (my $i = 0; $i< $diff; $i++) {
                         $pep = "X" . $pep;
                     }
                     $pep = $qseq . $pep;
@@ -95,10 +95,14 @@ while(<IN>) {
 		elsif ($binary eq "1011") {
 		    #print "$line_count: Type IV $begin\t$end\t$sstart\t$send\n";		    
 		    $Types{"Type 4"}++;
-		    my $diff = $sstart - $send;
-                    $diff++;
-                    my $sub_seq = substr $qseq, $diff;
-                    $pep = $pep . $sub_seq;
+		    #my $diff = $sstart - $send;
+                    #$diff++;
+                    #my $sub_seq = substr $qseq, $diff;
+		    my $diff = $end - $sstart;
+                    for (my $i=0; $i <= $diff; $i++) {
+			$pep =~ s/.$//;
+		    }
+		    $pep = $pep . $qseq;
                     $end = $send;
 		}
 		elsif ($binary eq "1010") {
@@ -123,16 +127,21 @@ while(<IN>) {
 	    }
 	    else {
 		if ($counter == 1) {
-		    my @A = split(//, $_);
+		    my @A = split(//, $pep);
 		    foreach my $i (@A) { if ($i eq "*") {$stops++;}}
 		    $pep =~ s/-//g;
 		    $pep =~ s/\*/X/g;
 		    $fixes--;
 		    $total_fixes += $fixes;
 		    $total_stops += $stops;
-		    print STDERR "$qid -> $counter\t$fixes\t$stops\n";
+		    print STDERR "$qid [$counter]\t$fixes\t$stops\n";
+		    print STDOUT ">$qid" . " [" . $counter . "]\n$pep\n";
 		}
-		print STDOUT ">$qid" . " -> " . $counter . "\n$pep\n";
+		elsif ($counter < 11) {
+		    $pep =~ s/-//g;
+		    $pep =~ s/\*/X/g;
+		    print STDOUT ">$qid" . " [" . $counter . "]\n$pep\n";
+		}
 		$fixes = 0;
 		$stops = 0;
 		$pep = $qseq;
@@ -142,9 +151,11 @@ while(<IN>) {
 	    }
 	}
 	else {
-	    $pep =~ s/-//g;
-	    $pep =~ s/\*/X/g;
-	    print STDOUT ">$q_prev" . " -> " . $counter . "\n$pep\n";
+	    if ($counter < 11) {
+		$pep =~ s/-//g;
+		$pep =~ s/\*/X/g;
+		print STDOUT ">$q_prev" . " [" . $counter . "]\n$pep\n";
+	    }
 	    $pep = $qseq;
 	    $begin = $sstart;
 	    $end = $send;
