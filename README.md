@@ -39,8 +39,8 @@ You recieve the following BLAST results whereby your sequence of interest "gene_
 | gene_01 | subj_01 |   82.76 |     455 |   282 |     224 |   281 |   2e-44 |      -3 |  
 | gene_01 | subj_01 |   51.02 |     591 |   448 |     178 |   226 |   2e-44 |      -2 |  
 | gene_01 | subj_01 |   83.33 |     102 |    31 |     341 |   364 |   2e-44 |      -2 |  
-| gene_01 | subj_01 |   80.00 |     247 |   188 |     294 |   314 |   2e-44 |      -1 |  
+| gene_01 | subj_01 |   80.00 |     247 |   188 |     279 |   340 |   2e-44 |      -1 |  
 
-### Overlap types
+By merging these four peptide alignmetn together The Polisher will have effectivly cliped out any frameshifts, be them insertions, deletions, or miscalled bases.
 
-![alt text](https://github.com/dnasko/frameshift_polisher/blob/master/images/overlap.png?raw=true "Overlap Types")
+

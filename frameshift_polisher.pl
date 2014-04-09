@@ -10,7 +10,7 @@ frameshift_polisher.pl -- BLAST-driven frameshift remover
 
 =head1 SYNOPSIS
 
- frameshift_polisher.pl -fasta /Path/to/infile.fasta -db /Path/to/db -work /Path/to/working/directory/
+ frameshift_polisher.pl -fasta /Path/to/infile.fasta -outfile /Path/to/output.fasta -db /Path/to/db -work /Path/to/working/directory/
                      [--help] [--manual]
 
 =head1 DESCRIPTION
@@ -25,6 +25,10 @@ frameshift_polisher.pl -- BLAST-driven frameshift remover
 =item B<-f, --fasta>=FILENAME
 
 Input NUCLEOTIDES in FASTA format. (Required) 
+
+=item B<-o, --outfile>=FILENAME
+
+Output FASTA file of PEPTIDEs. (Required)
 
 =item B<-d, --db>=FILENAME
 
@@ -87,12 +91,13 @@ use Polisher::QC qw(:Both);
 use Polisher::Format;
 
 #ARGUMENTS WITH NO DEFAULT
-my($fasta,$db,$work,$help,$manual);
+my($fasta,$outfile,$db,$work,$help,$manual);
 ## Args with defaults
 my $threads = 1;
 
 GetOptions (	
 				"f|fasta=s"	=>	\$fasta,
+                                "o|outfile=s"     =>      \$outfile,
 				"d|db=s"	=>	\$db,
                                 "w|work=s"      =>      \$work,
                                 "t|threads=s"   =>      \$threads,
@@ -105,6 +110,7 @@ pod2usage( {-exitval => 0, -verbose => 2, -output => \*STDERR} )  if ($help);
 pod2usage( -msg  => "\n\n ERROR!  Required argument -fasta not found.\n\n", -exitval => 2, -verbose => 1)  if (! $fasta );
 pod2usage( -msg  => "\n\n ERROR!  Required argument -db not found.\n\n", -exitval => 2, -verbose => 1)  if (! $db );
 pod2usage( -msg  => "\n\n ERROR!  Required argument -work not found.\n\n", -exitval => 2, -verbose => 1)  if (! $work );
+pod2usage( -msg  => "\n\n ERROR!  Required argument -outfile not found.\n\n", -exitval => 2, -verbose => 1)  if (! $outfile );
 
 ## QC checks
 QC::fasta_check($fasta);
@@ -134,5 +140,27 @@ if ( -z '$work/ncbi-blastx/$infile_root.$db_root.btab') {
     die "\n\n Frameshift Polisher is exiting because none of your sequences found a significant hit to any sequences in the BLAST database you provided.\n\n";
 }
 
+my $parse_exe = "perl $FindBin::Bin/bin/parse_btab.pl $work/ncbi-blastx/$infile_root.$db_root.btab" . 
+    " > $work/frameshift_polisher/$infile_root.$db_root.fasta" .
+    " 2> $work/frameshift_polisher/$infile_root.$db_root.report";
+print `$parse_exe`;
+
+my $print_flag = 0;
+open(OUT,">$outfile") || die "\n\n Error: Cannot open the output file: $outfile\n\n";
+open(IN,"<$work/frameshift_polisher/$infile_root.$db_root.fasta") || die "\n\nError: Unable to open the output fasta from the parser\n\n";
+while(<IN>) {
+    chomp;
+    if ($_ =~ m/^>/) {
+	if ($_ =~ m/\[1\]$/) { $print_flag = 1; print OUT "$_\n"; }
+    }
+    elsif ($print_flag == 1) {
+	$print_flag = 0;
+	print OUT "$_\n";
+    }
+}
+close(IN);
+close(OUT);
+
+print " Complete.\n Outputs written to: $outfile\n\n";
 
 exit 0;
