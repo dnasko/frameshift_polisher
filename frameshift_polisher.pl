@@ -131,6 +131,7 @@ my $blastx_exe = "blastx " .
     "-out $work/ncbi-blastx/$infile_root.$db_root.btab " .
     "-outfmt \"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qframe sframe qseq sseq ppos\" " .
     "-num_threads $threads " .
+    "-seg 'no' " .
     "-evalue 1";
 print `$blastx_exe`;
 print "[complete]\n";

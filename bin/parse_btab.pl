@@ -95,9 +95,6 @@ while(<IN>) {
 		elsif ($binary eq "1011") {
 		    #print "$line_count: Type IV $begin\t$end\t$sstart\t$send\n";		    
 		    $Types{"Type 4"}++;
-		    #my $diff = $sstart - $send;
-                    #$diff++;
-                    #my $sub_seq = substr $qseq, $diff;
 		    my $diff = $end - $sstart;
                     for (my $i=0; $i <= $diff; $i++) {
 			$pep =~ s/.$//;
@@ -117,9 +114,15 @@ while(<IN>) {
 		    $pep = $head . $qseq . $tail;
 		}
 		elsif ($binary eq "0011") {
-		    #print "$line_count: Type VI $begin\t$end\t$sstart\t$send\n";
+		    #print STDOUT "TYPE6\t$line_count: Type VI $begin\t$end\t$sstart\t$send\n";
 		    $Types{"Type 6"}++;
-		    
+		    my $top_diff  = ($begin - $sstart) + 1;
+		    my $tail_diff = ($end - $send) + 1;
+		    my $head = substr $qseq, 0, $top_diff;
+		    my $tail = substr $qseq, $tail_diff;
+		    $pep = $head . $pep . $tail;
+		    $begin = $sstart;
+		    $end   = $send;
                 }
 		else {
 		    die "\n\n Unexpected overlap class encountered: $binary\n\n";
