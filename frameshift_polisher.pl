@@ -91,20 +91,22 @@ use Polisher::QC qw(:Both);
 use Polisher::Format;
 
 #ARGUMENTS WITH NO DEFAULT
-my($fasta,$outfile,$db,$work,$help,$manual);
+my($fasta,$outfile,$db,$work,$version,$help,$manual);
 ## Args with defaults
 my $threads = 1;
 
 GetOptions (	
 				"f|fasta=s"	=>	\$fasta,
-                                "o|outfile=s"     =>      \$outfile,
+                                "o|outfile=s"   =>      \$outfile,
 				"d|db=s"	=>	\$db,
                                 "w|work=s"      =>      \$work,
                                 "t|threads=s"   =>      \$threads,
-				"h|help"	=>	\$help,
+				"v|version"     =>      \$version,
+                                "h|help"	=>	\$help,
 				"m|manual"	=>	\$manual);
 
 # VALIDATE ARGS
+if ($version) {print " The Frameshift Polisher\n Version 2.0\n Contact: Dan Nasko (dnasko\@udel.edu)\n\n"; exit 0;}
 pod2usage(-verbose => 2)  if ($manual);
 pod2usage( {-exitval => 0, -verbose => 2, -output => \*STDERR} )  if ($help);
 pod2usage( -msg  => "\n\n ERROR!  Required argument -fasta not found.\n\n", -exitval => 2, -verbose => 1)  if (! $fasta );
