@@ -28,7 +28,7 @@ Input NUCLEOTIDES in FASTA format. (Required)
 
 =item B<-o, --outfile>=FILENAME
 
-Output FASTA file of PEPTIDEs. (Required)
+Output FASTA file of PEPTIDEs. (Default: Saved under -work directory as a *.polished.fasta file)
 
 =item B<-d, --db>=FILENAME
 
@@ -41,6 +41,10 @@ Path of working directory, this does not necessarily need to already exist. (Req
 =item B<-t, --threads>=INT
 
 Number of threads to let BLASTX use. (Default = 1)
+
+=item B<-v, --version>
+
+Displays the version. (Optional)
 
 =item B<-h, --help>
 
@@ -119,6 +123,7 @@ QC::fasta_check($fasta);
 QC::nt_check($fasta);
 my $infile_root = Format::file_root($fasta);
 my $db_root     = Format::db_root($db);
+unless (defined $outfile) { $outfile = "$work/frameshift_polisher/$infile_root.$db_root.polished.fasta"; }
 
 ## Create working directories and update
 print `mkdir -p $work`;
@@ -144,13 +149,13 @@ if ( -z '$work/ncbi-blastx/$infile_root.$db_root.btab') {
 }
 
 my $parse_exe = "perl $FindBin::Bin/bin/parse_btab.pl $work/ncbi-blastx/$infile_root.$db_root.btab" . 
-    " > $work/frameshift_polisher/$infile_root.$db_root.fasta" .
+    " > $work/frameshift_polisher/$infile_root.$db_root.rough.fasta" .
     " 2> $work/frameshift_polisher/$infile_root.$db_root.report";
 print `$parse_exe`;
 
 my $print_flag = 0;
 open(OUT,">$outfile") || die "\n\n Error: Cannot open the output file: $outfile\n\n";
-open(IN,"<$work/frameshift_polisher/$infile_root.$db_root.fasta") || die "\n\nError: Unable to open the output fasta from the parser\n\n";
+open(IN,"<$work/frameshift_polisher/$infile_root.$db_root.rough.fasta") || die "\n\nError: Unable to open the output fasta from the parser\n\n";
 while(<IN>) {
     chomp;
     if ($_ =~ m/^>/) {
