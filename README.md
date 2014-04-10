@@ -20,7 +20,7 @@ Usage
 
 **Output**: FASTA of frameshift corrected peptide sequences
 
-`$ perl frameshift_polisher -fasta /Path/to/reads.fasta -db /Path/to/db -work /Path/to/working/directory`
+`$ perl frameshift_polisher -fasta /Path/to/reads.fasta -db /Path/to/blast/db -work /Path/to/working/directory -threads 8`
 
 
 How it works
