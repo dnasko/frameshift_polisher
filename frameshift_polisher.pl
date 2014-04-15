@@ -116,7 +116,6 @@ pod2usage( {-exitval => 0, -verbose => 2, -output => \*STDERR} )  if ($help);
 pod2usage( -msg  => "\n\n ERROR!  Required argument -fasta not found.\n\n", -exitval => 2, -verbose => 1)  if (! $fasta );
 pod2usage( -msg  => "\n\n ERROR!  Required argument -db not found.\n\n", -exitval => 2, -verbose => 1)  if (! $db );
 pod2usage( -msg  => "\n\n ERROR!  Required argument -work not found.\n\n", -exitval => 2, -verbose => 1)  if (! $work );
-pod2usage( -msg  => "\n\n ERROR!  Required argument -outfile not found.\n\n", -exitval => 2, -verbose => 1)  if (! $outfile );
 
 ## QC checks
 QC::fasta_check($fasta);
