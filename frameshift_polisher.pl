@@ -144,7 +144,7 @@ my $blastx_exe = "perl $FindBin::Bin/bin/para_blastx.pl " .
     "-q $fasta " . 
     "-d $db " . 
     "-o $work/ncbi-blastx/$infile_root.$db_root.btab " . 
-    '-f \"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qframe sframe qseq sseq ppos\" ' .
+    '--outfmt="\"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qframe sframe qseq sseq ppos"\" ' .
     "-t $threads " .
     "-e 1";
 
