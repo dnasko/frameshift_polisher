@@ -131,14 +131,23 @@ print `mkdir -p $work/frameshift_polisher`;
 print " QC checks ... [ Passed ]\n Create working directories ... [ Passed ]\n Begin BLASTx using $threads threads ... ";
 
 ## Begin BLASTX
-my $blastx_exe = "blastx " .
-    "-query $fasta " .
-    "-db $db " .
-    "-out $work/ncbi-blastx/$infile_root.$db_root.btab " .
-    "-outfmt \"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qframe sframe qseq sseq ppos\" " .
-    "-num_threads $threads " .
-    "-seg 'no' " .
-    "-evalue 1";
+# my $blastx_exe = "blastx " .
+#     "-query $fasta " .
+#     "-db $db " .
+#     "-out $work/ncbi-blastx/$infile_root.$db_root.btab " .
+#     "-outfmt \"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qframe sframe qseq sseq ppos\" " .
+#     "-num_threads $threads " .
+#     "-seg 'no' " .
+#     "-evalue 1";
+
+my $blastx_exe = "perl $FindBin::Bin/bin/para_blastx.pl" . 
+    "-q $fasta " . 
+    "-d $db " . 
+    "-o $work/ncbi-blastx/$infile_root.$db_root.btab " . 
+    "-f \"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qframe sframe qseq sseq ppos\"  "
+    "-t $threads "
+    "-e 1";
+
 print `$blastx_exe`;
 print "[complete]\n";
 
