@@ -140,7 +140,7 @@ print " QC checks ... [ Passed ]\n Create working directories ... [ Passed ]\n B
 #     "-seg 'no' " .
 #     "-evalue 1";
 
-my $blastx_exe = "perl $FindBin::Bin/bin/para_blastx.pl" . 
+my $blastx_exe = "perl $FindBin::Bin/bin/para_blastx.pl " . 
     "-q $fasta " . 
     "-d $db " . 
     "-o $work/ncbi-blastx/$infile_root.$db_root.btab " . 
