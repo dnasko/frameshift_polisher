@@ -47,7 +47,7 @@ while(<IN>) {
     else {
 	my $binary = "";
 	if ($qid eq $q_prev) {
-	    if ($sid eq $s_prev && $ppos >= 50) {
+	    if ($sid eq $s_prev && $ppos >= 30) {
 		$fixes += 1;
 		if ($sstart > $begin) { $binary = "1"; }
 		else { $binary = "0"; }
