@@ -119,9 +119,10 @@ pod2usage( -msg  => "\n\n ERROR!  Required argument -work not found.\n\n", -exit
 
 ## QC checks
 QC::fasta_check($fasta);
-QC::nt_check($fasta);
+my $num_seqs = QC::nt_check($fasta);
 my $infile_root = Format::file_root($fasta);
 my $db_root     = Format::db_root($db);
+$threads = QC::thread_check($num_seqs, $threads);
 unless (defined $outfile) { $outfile = "$work/frameshift_polisher/$infile_root.$db_root.polished.fasta"; }
 
 ## Create working directories and update
@@ -130,16 +131,7 @@ print `mkdir -p $work/ncbi-blastx`;
 print `mkdir -p $work/frameshift_polisher`;
 print " QC checks ... [ Passed ]\n Create working directories ... [ Passed ]\n Begin BLASTx using $threads threads ... ";
 
-## Begin BLASTX
-# my $blastx_exe = "blastx " .
-#     "-query $fasta " .
-#     "-db $db " .
-#     "-out $work/ncbi-blastx/$infile_root.$db_root.btab " .
-#     "-outfmt \"6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qframe sframe qseq sseq ppos\" " .
-#     "-num_threads $threads " .
-#     "-seg 'no' " .
-#     "-evalue 1";
-
+## Begin BLASTx
 my $blastx_exe = "perl $FindBin::Bin/bin/para_blastx.pl " . 
     "-q $fasta " . 
     "-d $db " . 
@@ -149,11 +141,11 @@ my $blastx_exe = "perl $FindBin::Bin/bin/para_blastx.pl " .
     "-e 1";
 
 print `$blastx_exe`;
-print "[complete]\n";
+print " [BLAST complete]\n";
 
 ## Begin parsing the BLASTX output
 if ( -z '$work/ncbi-blastx/$infile_root.$db_root.btab') {
-    die "\n\n Frameshift Polisher is exiting because none of your sequences found a significant hit to any sequences in the BLAST database you provided.\n\n";
+    die "\n\n Frameshift Polisher is exiting because none of your sequences found\n a significant hit to any sequences in the BLAST database you provided.\n\n";
 }
 
 my $parse_exe = "perl $FindBin::Bin/bin/parse_btab.pl $work/ncbi-blastx/$infile_root.$db_root.btab" . 
@@ -177,6 +169,6 @@ while(<IN>) {
 close(IN);
 close(OUT);
 
-print " Complete.\n Outputs written to: $outfile\n\n";
+print "\n Completed successfully!\n Outputs written to: $outfile\n\n";
 
 exit 0;

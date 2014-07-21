@@ -120,8 +120,8 @@ my $tmp_file = "./$program" . "_tmp_" . $rand_string;
 ## Check that blastn and makeblastdb are installed on this machine
 my $PROG = `which $program`; unless ($PROG =~ m/$program/) { die "\n\n ERROR: External dependency '$program' not installed in system PATH\n\n (ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/)\n\n";}
 my $date = `date`;
-print STDERR " Using $threads threads\n";
-print STDERR " Using this BLAST: $PROG Beginning: $date\n";
+chomp($PROG);
+print STDERR " [ Using this BLAST: $PROG ]\n";
 
 ## All clear, time to set up some globals
 my $seqs = `egrep -c "^>" $query`;
@@ -129,7 +129,7 @@ chomp($seqs);
 
 ## Create the working directory, then make blastdb and execute blastn
 if ($threads == 1) {
-    print `$program -query $query -db $db -out $out -outfmt $outfmt -evalue $evalue -num_threads 1 -seg 1`;
+    print `$program -query $query -db $db -out $out -outfmt $outfmt -evalue $evalue -num_threads 1 -seg no`;
 }
 else {
     print `mkdir -p $tmp_file`;
@@ -142,7 +142,7 @@ else {
     print `perl $script_working_dir/splitFASTA.pl $query $tmp_file split $seqs_per_file`;
     print `mkdir -p $tmp_file/btab_splits`;
     for (my $i=1; $i<=$threads; $i++) {
-	my $blast_exe = "$program -query $tmp_file/split-$i.fsa -db $db -out $tmp_file/btab_splits/split.$i.btab -outfmt $outfmt -evalue $evalue -num_threads 1";
+	my $blast_exe = "$program -query $tmp_file/split-$i.fsa -db $db -out $tmp_file/btab_splits/split.$i.btab -outfmt $outfmt -evalue $evalue -num_threads 1 -seg no";
 	push (@THREADS, threads->create('task',"$blast_exe"));
     }
     foreach my $thread (@THREADS) {
@@ -152,7 +152,6 @@ else {
     print `rm -rf $tmp_file`;
 }
 $date = `date`;
-print STDERR "\n BLAST complete: $date\n";
 
 sub task
 {
