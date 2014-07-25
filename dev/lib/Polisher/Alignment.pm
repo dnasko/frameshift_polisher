@@ -123,8 +123,11 @@ sub needleman_wunsch
 
 sub score
 {
-    my $align1 = $_[0];
-    my $align2 = $_[1];
+    my $align1   = $_[0];
+    my $align2   = $_[1];
+    my $MATCH    = $_[2];
+    my $MISMATCH = $_[3];
+    my $GAP      = $_[4];
     my $score = 0;
     my @A1 = split(//, $align1);
     my @A2 = split(//, $align2);
@@ -142,6 +145,45 @@ sub score
 	}
     }
     return($score);
+}
+
+sub translate
+{
+    my %codon = (
+    'GCT' => 'A', 'GCC' => 'A', 'GCA' => 'A', 'GCG' => 'A', 'TTA' => 'L',
+    'TTG' => 'L', 'CTT' => 'L', 'CTC' => 'L', 'CTA' => 'L', 'CTG' => 'L',
+    'CGT' => 'R', 'CGC' => 'R', 'CGA' => 'R', 'CGG' => 'R', 'AGA' => 'R',
+    'AGG' => 'R', 'AAA' => 'K', 'AAG' => 'K', 'AAT' => 'N', 'AAC' => 'N',
+    'ATG' => 'M', 'GAT' => 'D', 'GAC' => 'D', 'TTT' => 'F', 'TTC' => 'F',
+    'TGT' => 'C', 'TGC' => 'C', 'CCT' => 'P', 'CCC' => 'P', 'CCA' => 'P',
+    'CCG' => 'P', 'CAA' => 'Q', 'CAG' => 'Q', 'TCT' => 'S', 'TCC' => 'S',
+    'TCA' => 'S', 'TCG' => 'S', 'AGT' => 'S', 'AGC' => 'S', 'GAA' => 'E',
+    'GAG' => 'E', 'ACT' => 'T', 'ACC' => 'T', 'ACA' => 'T', 'ACG' => 'T',
+    'GGT' => 'G', 'GGC' => 'G', 'GGA' => 'G', 'GGG' => 'G', 'TGG' => 'W',
+    'CAT' => 'H', 'CAC' => 'H', 'TAT' => 'Y', 'TAC' => 'Y', 'ATT' => 'I',
+    'ATC' => 'I', 'ATA' => 'I', 'GTT' => 'V', 'GTC' => 'V', 'GTA' => 'V',
+    'GTG' => 'V', 'TAG' => '*', 'TAA' => '*', 'TGA' => '*' );
+    my $seq   = $_[0];
+    my $frame = $_[1];
+    $seq = uc $seq;
+    my $size = length($seq);
+    my $peptide = "";
+    if ($frame > 3) { $seq = revcomp($seq);}
+    if ($frame == 2 || $frame == 5) {
+        $seq = substr $seq, 1;
+    }
+    elsif ($frame == 3 || $frame == 6) {
+        $seq = substr $seq, 2;
+    }
+    for (my $i=0; $i<$size-3; $i+=3) {
+        my $trip = substr $seq, 0, 3;
+        print "$trip\n";
+	$peptide = $peptide . $codon{$trip};
+	if (length($seq) >= 3) {
+	    $seq = substr $seq, 3;
+        }
+    }
+    return($peptide);
 }
 
 1;
