@@ -92,6 +92,7 @@ use Getopt::Long;
 use File::Basename;
 use Pod::Usage;
 use Polisher::QC qw(:Both);
+use Polisher::Alignment qw(:Both);
 use Polisher::Format;
 
 #ARGUMENTS WITH NO DEFAULT
