@@ -117,7 +117,7 @@ sub needleman_wunsch
 	    $aln_string = $aln_string . " ";
 	}
     }
-    my $score = score($align1,$align2);
+    my $score = score($align1,$align2,$MATCH,$MISMATCH,$GAP);
     return($align1,$aln_string,$align2,$score);
 }
 
@@ -166,8 +166,7 @@ sub translate
     my $seq   = $_[0];
     my $frame = $_[1];
     $seq = uc $seq;
-    my $size = length($seq);
-    my $peptide = "";
+     my $peptide = "";
     if ($frame > 3) { $seq = revcomp($seq);}
     if ($frame == 2 || $frame == 5) {
         $seq = substr $seq, 1;
@@ -175,15 +174,23 @@ sub translate
     elsif ($frame == 3 || $frame == 6) {
         $seq = substr $seq, 2;
     }
-    for (my $i=0; $i<$size-3; $i+=3) {
+    my $size = length($seq);
+   for (my $i=0; $i<$size-3; $i+=3) {
         my $trip = substr $seq, 0, 3;
-        print "$trip\n";
 	$peptide = $peptide . $codon{$trip};
 	if (length($seq) >= 3) {
 	    $seq = substr $seq, 3;
         }
     }
     return($peptide);
+}
+
+sub revcomp
+{
+    my $seq = $_[0];
+    my $rev_comp = scalar reverse $seq;
+    $rev_comp =~ tr/ATGCatgc/TACGTACG/;
+    return($rev_comp);
 }
 
 1;
