@@ -1,0 +1,304 @@
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+TIE: 2
+POS: 35
+TIE: 1
+POS: 76
+TIE: 2
+POS: 76
+TIE: 1
+POS: 77
+TIE: 2
+POS: 77
+TIE: 2
+POS: 90
+TIE: 
+POS: 91
+Use of uninitialized value $proposed_ref_pos in numeric eq (==) at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 157.
+TIE: 2
+POS: 91
+TIE: 1
+POS: 118
+TIE: 3
+POS: 118
+TIE: 1
+POS: 119
+TIE: 3
+POS: 119
+TIE: 2
+POS: 131
+TIE: 3
+POS: 131
+TIE: 1
+POS: 156
+TIE: 3
+POS: 156
+TIE: 1
+POS: 157
+TIE: 3
+POS: 157
+TIE: 1
+POS: 160
+TIE: 3
+POS: 160
+TIE: 1
+POS: 161
+TIE: 3
+POS: 161
+TIE: 1
+POS: 162
+TIE: 3
+POS: 162
+TIE: 2
+POS: 171
+TIE: 3
+POS: 171
+TIE: 1
+POS: 201
+TIE: 3
+POS: 201
+TIE: 1
+POS: 219
+TIE: 3
+POS: 219
+TIE: 2
+POS: 231
+TIE: 3
+POS: 231
+TIE: 2
+POS: 273
+TIE: 3
+POS: 273
+TIE: 2
+POS: 285
+TIE: 3
+POS: 285
+TIE: 2
+POS: 302
+TIE: 3
+POS: 302
+TIE: 1
+POS: 309
+TIE: 3
+POS: 309
+TIE: 1
+POS: 326
+TIE: 3
+POS: 326
+TIE: 
+POS: 330
+Use of uninitialized value $proposed_ref_pos in numeric eq (==) at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 157.
+TIE: 3
+POS: 330
+TIE: 1
+POS: 377
+TIE: 3
+POS: 377
+TIE: 1
+POS: 430
+TIE: 2
+POS: 430
+TIE: 1
+POS: 461
+TIE: 2
+POS: 461
+TIE: 1
+POS: 462
+TIE: 2
+POS: 462
+TIE: 1
+POS: 463
+TIE: 2
+POS: 463
+TIE: 
+POS: 479
+Use of uninitialized value $proposed_ref_pos in numeric eq (==) at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 157.
+TIE: 3
+POS: 479
+
+ @@@@@@@ Well that didn't work!@@@@@@@
+
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+>Query_Insertion
+MQLINVIKSSGVSQSFQLINDPQKIIKVLSWAAEGTSVDPYELYENIKSYLRDGMTTDDIQTIVIKAAANSISVEEPDYQYVAARCLMFALRKHVYGQYEPRSFIDHISYCVNAGKYDPELLSKYSAEEITFLESKIKHERDMEFTYSGAMQLKEKYLVKDKTTGQIYETPQFAFMTIGMALHQDEPVDRLKHVIRFYEAVSTRQISLPTPIMAGCRTPTRQFSSCVVIEAGDSLKSINKASASIVEYISKRAGIGINVGMIRAEGSKIGMGEVRHTGVIPFWKHFQTAVKSCSQGGIRGGAATAYYPIWHLEVENLLVLKNNKGVEENRIRHMDYGVQLNDLMMERFGKNDYITLFSPHEMGGELYYSYFKDQDRFRELYEAAEKDPNIRKKRIKARELFELLMTERSGTARIYVQFIDNTNNYTPFIREKAPIRQSNLCCEIAIPTNDVNSPDAEIGLCTLSAFVLDNFDWQDQDKINELAEVQVRALDNLLDYQGYPVPEAEKAKKRRNLGVGVTNYAAWLASNFASYEDANDLTHELFERLQYGLIKASIKLAKEKGPSEYYSDTRWSRGELPIDWYNKKIDQIAAPKYVCDWSALREDLKLFGIRNSTLSALMPCESSSQVSNSTNGYEPPRGPVSVKESKEGSFNQVVPNIEHNIDLYDYTWKLAKKGNKPYLTQVAIMLKWVCQSASANTYYDPQIFPKGKVPMSIMIDDMLYGWYYGIKNFYYHNTRDGSGTDDYEIETPKADDCAACKL
+11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+TIE: 2
+POS: 39
+TIE: 1
+POS: 80
+TIE: 2
+POS: 80
+TIE: 1
+POS: 81
+TIE: 2
+POS: 81
+TIE: 2
+POS: 94
+TIE: 
+POS: 95
+Use of uninitialized value $proposed_ref_pos in numeric eq (==) at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 157.
+TIE: 2
+POS: 95
+TIE: 1
+POS: 122
+TIE: 3
+POS: 122
+TIE: 1
+POS: 123
+TIE: 3
+POS: 123
+TIE: 2
+POS: 135
+TIE: 3
+POS: 135
+TIE: 1
+POS: 160
+TIE: 3
+POS: 160
+TIE: 1
+POS: 161
+TIE: 3
+POS: 161
+TIE: 1
+POS: 164
+TIE: 3
+POS: 164
+TIE: 1
+POS: 165
+TIE: 3
+POS: 165
+TIE: 1
+POS: 166
+TIE: 3
+POS: 166
+TIE: 2
+POS: 175
+TIE: 3
+POS: 175
+TIE: 1
+POS: 205
+TIE: 3
+POS: 205
+TIE: 1
+POS: 223
+TIE: 3
+POS: 223
+TIE: 2
+POS: 235
+TIE: 3
+POS: 235
+TIE: 2
+POS: 277
+TIE: 3
+POS: 277
+TIE: 2
+POS: 289
+TIE: 3
+POS: 289
+TIE: 2
+POS: 306
+TIE: 3
+POS: 306
+TIE: 1
+POS: 313
+TIE: 3
+POS: 313
+TIE: 1
+POS: 330
+TIE: 3
+POS: 330
+TIE: 
+POS: 334
+Use of uninitialized value $proposed_ref_pos in numeric eq (==) at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 157.
+TIE: 3
+POS: 334
+TIE: 1
+POS: 381
+TIE: 3
+POS: 381
+TIE: 1
+POS: 434
+TIE: 2
+POS: 434
+TIE: 1
+POS: 465
+TIE: 2
+POS: 465
+TIE: 1
+POS: 466
+TIE: 2
+POS: 466
+TIE: 1
+POS: 467
+TIE: 2
+POS: 467
+TIE: 
+POS: 483
+Use of uninitialized value $proposed_ref_pos in numeric eq (==) at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 157.
+TIE: 3
+POS: 483
+
+ @@@@@@@ Well that didn't work!@@@@@@@
+
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+>Query_deletion
+MQLINVIKSSGVSQSFDPQKIIKVAEGTSVDPYELYENIKSYLRDGMTTDDIQTIVIKAAANSISVEEPDYQYVAARCLMFALRKHVYGQYEPRSFIDHISYCVNAGKYDPELLSKYSAEEITFLESKIKHERDMEFTYSGAMQLKEKYLVKDKTTGQIYETPQFAFMTIGMALHQDEPVDRLKHVIRFYEAVSTRQISLPTPIMAGCRTPTRQFSSCVVIEAGDSLKSINKASASIVEYISKRAGIGINVGMIRAEGSKIGMGEVRHTGVIPFWKHFQTAVKSCSQGGIRGGAATAYYPIWHLEVENLLVLKNNKGVEENRIRHMDYGVQLNDLMMERFGKNDYITLFSPHEMGGELYYSYFKDQDRFRELYEAAEKDPNIRKKRIKARELFELLMTERSGTARIYVQFIDNTNNYTPFIREKAPIRQSNLCCEIAIPTNDVNSPDAEIGLCTLSAFVLDNFDWQDQDKINELAEVQVRALDNLLDYQGYPVPEAEKAKKRRNLGVGVTNYAAWLASNFASYEDANDLTHELFERLQYGLIKASIKLAKEKGPSEYYSDTRWSRGELPIDWYNKKIDQIAAPKYVCDWSALREDLKLFGIRNSTLSALMPCESSSQVSNSTNGYEPPRGPVSVKESKEGSFNQVVPNIEHNIDLYDYTWKLAKKGNKPYLTQVAIMLKWVCQSASANTYYDPQIFPKGKVPMSIMIDDMLYGWYYGIKNFYYHNTRDGSGTDDYEIETPKADDCAACKL
+111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+TIE: 1
+POS: 35
+TIE: 2
+POS: 35
+TIE: 1
+POS: 36
+TIE: 2
+POS: 36
+TIE: 2
+POS: 41
+TIE: 
+POS: 42
+Use of uninitialized value $proposed_ref_pos in numeric eq (==) at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 157.
+TIE: 3
+POS: 42
+
+ @@@@@@@ Well that didn't work!@@@@@@@
+
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+Use of uninitialized value within %tie in concatenation (.) or string at /Users/dnasko/GitHub/frameshift_polisher/bin/needleman_wunsch__dev.pl line 113.
+>Query_region_little_homology
+MQLINVIKSSGVSQSFDPQKIIKVFS*LANGISVDPYELYENIKSYLRDGMTTDDIQTIVIKAAANSISVEEPDYQYVAARCLMFALRKHVYGQYEPRSFIDHISYCVNAGKYDPELLSKYSAEEITFLESKIKHERDMEFTYSGAMQLKEKYLVKDKTTGQIYETPQFAFMTIGMALHQDEPVDRLKHVIRFYEAVSTRQISLPTPIMAGCRTPTRQFSSCVVIEAGDSLKSINKASASIVEYISKRAGIGINVGMIRAEGSKIGMGEVRHTGVIPFWKHFQTAVKSCSQGGIRGGAATAYYPIWHLEVENLLVLKNNKGVEENRIRHMDYGVQLNDLMMERFGKNDYITLFSPHEMGGELYYSYFKDQDRFRELYEAAEKDPNIRKKRIKARELFELLMTERSGTARIYVQFIDNTNNYTPFIREKAPIRQSNLCCEIAIPTNDVNSPDAEIGLCTLSAFVLDNFDWQDQDKINELAEVQVRALDNLLDYQGYPVPEAEKAKKRRNLGVGVTNYAAWLASNFASYEDANDLTHELFERLQYGLIKASIKLAKEKGPSEYYSDTRWSRGELPIDWYNKKIDQIAAPKYVCDWSALREDLKLFGIRNSTLSALMPCESSSQVSNSTNGYEPPRGPVSVKESKEGSFNQVVPNIEHNIDLYDYTWKLAKKGNKPYLTQVAIMLKWVCQSASANTYYDPQIFPKGKVPMSIMIDDMLYGWYYGIKNFYYHNTRDGSGTDDYEIETPKADDCAACKL
+1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
