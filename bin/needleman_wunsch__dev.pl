@@ -21,6 +21,12 @@ GetOptions (
     "s|sense=s"=>\$sense,
     "n|name=s"=>\$name);
 
+pod2usage( -msg  => "\n\n ERROR!  Required argument -offset not found.\n\n", -exitval => 2, -verbose => 1)  if (! $reference_offset );
+pod2usage( -msg  => "\n\n ERROR!  Required argument -ref not found.\n\n", -exitval => 2, -verbose => 1)  if (! $reference );
+pod2usage( -msg  => "\n\n ERROR!  Required argument -query not found.\n\n", -exitval => 2, -verbose => 1)  if (! $read );
+# pod2usage( -msg  => "\n\n ERROR!  Required argument -sense not found.\n\n", -exitval => 2, -verbose => 1)  if (! $sense );
+pod2usage( -msg  => "\n\n ERROR!  Required argument -name not found.\n\n", -exitval => 2, -verbose => 1)  if (! $name );
+
 # my ($reference,$read);
 my ($frame_start,$frame_end);
 my (%three_frame,%positive_scoring_regions,%pos_scr_rgns_inv,%framer,%tie);
@@ -67,10 +73,11 @@ for (my $frame=$frame_start; $frame <=$frame_end; $frame++) {
     $three_frame{$frame} = $query_peptide;
     my ($q_align,$aln_string,$r_align,$score) = Alignment::needleman_wunsch($query_peptide, $trmd_reference, $MATCH, $MISMATCH, $GAP);
     ## Slide through the NW alignment
-    for (my $i=0; $i <= length($q_align)-3; $i++) {
+   for (my $i=0; $i <= length($q_align)-3; $i++) {
 	my $q_window = substr $q_align, $i, 3;
 	my $r_window = substr $r_align, $i, 3;
 	my $score = Alignment::score($q_window, $r_window, $MATCH, $MISMATCH, $GAP);
+	# if ($score > 0) { }
 	if ($q_pos == 1 && $r_pos == 1) {
 	    my $q_anchor = substr $q_window, 0, 1;
 	    my $r_anchor = substr $r_window, 0, 1;
@@ -110,7 +117,7 @@ foreach my $i (sort {$a<=>$b} keys %positive_scoring_regions) {  ## foreach fram
     foreach my $j (sort {$a<=>$b} keys %{$positive_scoring_regions{$i}}) {
 	if (exists $framer{$positive_scoring_regions{$i}{$j}}) {
 	    if (exists $tie{$positive_scoring_regions{$i}{$j}}) {
-		$tie{$positive_scoring_regions{$i}{$j}} = $tie{$framer{$positive_scoring_regions{$i}{$j}}} . "_" . $i;
+		$tie{$positive_scoring_regions{$i}{$j}} = $tie{$positive_scoring_regions{$i}{$j}} . "_" . $i;
 	    }
 	    else {
 		$tie{$positive_scoring_regions{$i}{$j}} = $framer{$positive_scoring_regions{$i}{$j}} . "_" . $i;
@@ -121,20 +128,6 @@ foreach my $i (sort {$a<=>$b} keys %positive_scoring_regions) {  ## foreach fram
 	}
 	$pos_scr_rgns_inv{$i}{$positive_scoring_regions{$i}{$j}} = $j; 
     }
-}
-
-print STDOUT "TIES:\n";
-foreach my $i (sort {$a<=>$b} keys %tie) {
-    # my @frames = split(/_/, $tie{$i});
-    # foreach my $f (@frames) {
-    # 	if (exists $pos_scr_rgns_inv{$f}{$i}) {
-    # 	    print STDOUT "$i\t$pos_scr_rgns_inv{$f}{$i}\t$f\n";
-    # 	}
-    # 	else {
-    # 	    print STDOUT "MISSING: $i\t$f\n";
-    # 	}
-    # }
-    print "$i\t$tie{$i}\n";
 }
 
 ## Running thorugh %framer to make sure each position has a call
@@ -148,20 +141,47 @@ for (my $pos = $q_begin_pos; $pos <= $q_end_pos; $pos++) {
 		    $framer{$pos} = $previous_frame;
 		}
 		else {
-		    my $prev_ref_pos = $pos_scr_rgns_inv{$framer{$pos-1}}{$pos-1};
 		    my @ties = split(/_/, $tie{$pos});
-		    my $found_flag = 0;
-		    foreach my $tie_frame (@ties) {
-			print STDERR "TIE: $tie_frame\nPOS: $pos\n";
-			my $proposed_ref_pos = $pos_scr_rgns_inv{$tie_frame}{$pos};
-			if ($prev_ref_pos+1 == $proposed_ref_pos) {
-			    $framer{$pos} = $tie_frame;
-			    $found_flag = 1;
-			    last;
+		    if (exists $framer{$pos-1}) {
+			if (exists $pos_scr_rgns_inv{$framer{$pos-1}}{$pos-1}) {
+			    my $prev_ref_pos = $pos_scr_rgns_inv{$framer{$pos-1}}{$pos-1};
+			    my $found_flag = 0;
+			    foreach my $tie_frame (@ties) {
+				unless ($tie_frame eq "") {
+				my $proposed_ref_pos = $pos_scr_rgns_inv{$tie_frame}{$pos};
+				if ($prev_ref_pos+1 == $proposed_ref_pos) {
+				    $framer{$pos} = $tie_frame;
+				    $found_flag = 1;
+				    last;
+				}
+				elsif ($prev_ref_pos+2 == $proposed_ref_pos) {
+				    $framer{$pos} = $tie_frame;
+				    $found_flag = 1;
+				    last;
+				}
+				elsif ($prev_ref_pos == $proposed_ref_pos) {
+				    $framer{$pos} = $tie_frame;
+				    $found_flag = 1;
+				    last;
+				}
+				elsif ($prev_ref_pos + 3 == $proposed_ref_pos) {
+				    $framer{$pos} = $tie_frame;
+				    $found_flag = 1;
+				    last;
+				}
+				}
+			    }
+			    if ($found_flag == 0) {
+				my $frame_of_choice = whose_closest(@ties, $pos);
+				$framer{$pos} = $frame_of_choice;
+			    }
+			}
+			else {
+			    $framer{$pos} =$ties[0];
 			}
 		    }
-		    if ($found_flag == 0) {
-			die "\n @@@@@@@ Well that didn't work!@@@@@@@\n\n";
+		    else {
+			$framer{$pos} = $ties[0];
 		    }
 		}
 	    }
@@ -230,19 +250,37 @@ for (my $pos = $q_begin_pos; $pos <= $q_end_pos; $pos++) {
 	else {
 	    $aa = substr $three_frame{$frame_start}, $pos-1, 1;
 	}
-# if ($aa eq "*") {
-	#     if ($framer{$pos-1} == $framer{$pos} && $framer{$pos} == $framer{$pos+1}) {
-	# 	$framer{$pos} = $framer{$pos-1};
-		
-	#     }
-	#     elsif ($framer{$pos} != $framer{$pos+1}) {
-	# 	$framer{$pos} = $framer{$pos+1};
-	#     }
-	#     elsif ($framer{$pos} != $framer{$pos-1}) {
-	# 	$framer{$pos} =$framer{$pos-1};
-	#     }
-	#     $aa = substr $three_frame{$framer{$pos}}, $pos-1, 1;
-	# }
+	if ($aa eq "*") {
+	    if (exists $framer{$pos-1} && exists $framer{$pos+1}) {
+		if ($framer{$pos-1} == $framer{$pos} && $framer{$pos} == $framer{$pos+1}) {
+		    $framer{$pos} = $framer{$pos-1};
+		    $aa = "X";
+		}
+		elsif ($framer{$pos} != $framer{$pos+1}) {
+                    $framer{$pos} = $framer{$pos+1};
+                    $aa = substr $three_frame{$framer{$pos}}, $pos-1, 1;
+                }
+		elsif ($framer{$pos} != $framer{$pos-1}) {
+                    $framer{$pos} =$framer{$pos-1};
+                    $aa = substr $three_frame{$framer{$pos}}, $pos-1, 1;
+                }
+	    }	
+	    elsif (exists $framer{$pos+1}) {
+		if ($framer{$pos} != $framer{$pos+1}) {
+		    $framer{$pos} = $framer{$pos+1};
+		    $aa = substr $three_frame{$framer{$pos}}, $pos-1, 1;
+		}
+	    }
+	    elsif (exists $framer{$pos-1}) {
+		if ($framer{$pos} != $framer{$pos-1}) {
+		    $framer{$pos} =$framer{$pos-1};
+		    $aa = substr $three_frame{$framer{$pos}}, $pos-1, 1;
+		}
+	    }
+	}
+	if ($aa eq "*") {
+	    $aa = "X";
+	}
 	$corrected_peptide = $corrected_peptide . $aa;
 	$frame_string = $frame_string . $framer{$pos};
     }
@@ -286,5 +324,43 @@ sub find_prev_next
     }
     return($previous_frame,$next_frame);
 }
+sub whose_closest
+{
+    my @ties = $_[0];
+    my $pos  = $_[1];
+    my $prev_ref_pos;
+    if (exists $framer{$pos-1}) {
+	if (exists $pos_scr_rgns_inv{$framer{$pos-1}}{$pos-1}) {
+	    $prev_ref_pos = $pos_scr_rgns_inv{$framer{$pos-1}}{$pos-1};
+	    my $min_dist = 10**9;
+	    my $frame_of_min_dist;
+	    foreach my $i (@ties) {
+		if (exists $pos_scr_rgns_inv{$i}{$pos}) {
+		    my $proposed_ref_pos = $pos_scr_rgns_inv{$i}{$pos};
+		    my $diff = $proposed_ref_pos - $prev_ref_pos;
+		    if ($diff >= 0) {
+			if ($diff < $min_dist) {
+			    $min_dist = $diff;
+			    $frame_of_min_dist = $i;
+			}
+		    }
+		}
+	    }
+	    if (defined $frame_of_min_dist) {
+		return ($frame_of_min_dist);
+	    }
+	    else {
+		return ($ties[0]);
+	    }
+	}
+	else {
+	    return ($ties[0]);
+	}
+    }
+    else {
+	return ($ties[0]);
+    }
+}
+
 
 exit 0;
