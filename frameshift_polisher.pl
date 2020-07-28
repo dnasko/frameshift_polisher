@@ -32,15 +32,15 @@ Output FASTA file of PEPTIDEs. (Default: Saved under -work directory as a *.poli
 
 =item B<-d, --db>=FILENAME
 
-Location of the user-defined BLASTable database. (Required) 
+Location of the user-defined protein BLAST database. (Required) 
 
 =item B<-w, --work>=DIR
 
-Path of working directory, this does not necessarily need to already exist. (Required)
+Path of the working directory. Will create it if it does not already exist. (Required)
 
 =item B<-t, --threads>=INT
 
-Number of threads to let BLASTX use. (Default = 1)
+Number of threads to let BLASTx use. (Default = 1)
 
 =item B<-v, --version>
 
@@ -69,7 +69,7 @@ Center for Bioinformatics and Computational Biology, University of Delaware.
 
 =head1 REPORTING BUGS
 
-Report bugs to dnasko@udel.edu
+Report bugs to dan.nasko@gmail.com
 
 =head1 COPYRIGHT
 
